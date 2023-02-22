@@ -95,7 +95,7 @@ Note: the AVL tree implemented also uses lists to deal with duplicate nodes, lik
    ```
 2. You can then run the checker by running ./run_checker.sh.
    ```sh
-   ./run.sh
+   ./run_checker.sh
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
