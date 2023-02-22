@@ -54,11 +54,14 @@
 
 Coded in C, this project contains an implementation of an AVL tree data structure and an example usage of it to encrypt messages, using the Vigenere Cypher.
 
-Note: the AVL tree implemented also uses lists to deal with duplicate nodes, like in the picture below:
-<br>
 <a href="https://github.com/miron-boiangiu/avl_tree_cypher/blob/main/Tema2.pdf">Assignment link.</a>
 
-TODO: add pic
+Note: the AVL tree implemented also uses lists to deal with duplicate nodes, like in the picture below:
+<br>
+
+<div align="center">
+<img src="images/example_tree.png" height="500">
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
