@@ -1,0 +1,98 @@
+© Boiangiu Victor-Miron
+- 315 CD
+
+---------------------------------------------------------------------------------------
+        Disclaimer: deoarece sunt foarte multe functii si cu totii vrem un README cat
+    mai concis, voi descrie doar functiile mai importante si relevante pentru rezolvarea
+    temei. Ceea ce este self-explanatory din cod, care este comentat unde e mai
+    important, va fi omis din README.
+---------------------------------------------------------------------------------------
+
+Cerinta 1:
+            avlRotate{Left,Right}: pastrez pointerii catre toate nodurile relevante
+        pentru rotatie, schimb legaturile, updatez inaltimile nodurilor si apoi urc pana
+        la radacina cu updatarea inaltimilor.
+
+            avlFixUP: incep sa parcurg arborele incepand cu nodul dat ca parametru, tinand
+        minte daca am urcat prin stanga sau prin dreapta si uitandu-ma si in ce directie
+        urmeaza sa urc. In cazul in care parintele nu este echilibrat, apelez avlRotate
+        pentru a reechilibra arborele si apoi ies din functie, aceasta fiind folosita doar
+        pentru inserare, unde arborele trebuie reechilibrat o singura data, spre deosebire
+        de avlFixUpDelete, unde continuam cu verificarea de dezechilibre pana la radacina.
+
+            repair_parents_children: se asigura ca fiecare nod duplicat are aceiasi copii si
+        parinti ca primul nod din lista de duplicate.
+
+            avlFixSuccessor: repara structura de lista a arborelui, refacand legaturile de
+        la fiecare lista de duplicate cu listele anterioare si urmatoare.
+
+            insert: daca nodul ce trebuie adaugat nu este deja existent, acesta este adaugat
+        ca intr-un arbore binar si apoi arborele este reechilibrat prin avlFixUp, iar apoi
+        arborele este reparat prin avlFixSuccessor si repair_parents_children. Daca valoarea
+        nodului de adaugat se afla deja in arbore, nodul se pune la finalul listei de duplicate
+        si se repara arborele folosind aceleasi functii ca in cazul anterior.
+            ! Important: in cazul in care exista deja un nod cu valoarea pe care incercam sa o
+        adaugam, pentru a economisi memorie, noul nod creat are ACELASI pointer elem ca cel
+        deja-gasit, dar propriul lui info, incat acesta poate sa difere intre 2 noduri dintr-o
+        lista de duplicate. Pointer-ul elem este sters de-abia cand este eliminat ultimul nod
+        din lista de duplicate. 
+
+            avlFixUpDelete: functioneaza asemenea lui avlFixUP, doar ca acum algoritmul difera
+        in sensul ca nu mai este relevant pe unde am urcat in arbore, ci doar ce noduri au
+        valoare mai mare decat altele: daca la nodul X am dezechilibru, ma intereseaza care
+        dintre copii lui e mai mare si care din copii copilului mai mare este mai mare.
+        In functie de care noduri sunt mai mari, ne putem afla tot pe 4 cazuri, ca la avlFixUp,
+        dar, dupa ce este readus la echilibru nodul respectiv, trebuie continuata verificarea
+        pana la radacina.
+
+            delete_aux: functie recursiva ce cauta nodul ce trebuie sters si verifica daca
+        acesta are o lista de duplicate. In cazul in care are, este sters ultimul duplicat.
+        Daca nu are si este frunza, este pur si simplu adaugat in lista de noduri de sters.
+        Daca are doar un subarbore, acesta ii ia locul si este adaugat la lista de noduri
+        de sters. Daca are ambii subarbori, acesta ia valoarea minimului din subarborele
+        drept (putea la fel de bine sa ia si maximul din subarborele stang, asa am ales)
+        si apoi functia este apelata pentru a sterge minimul respectiv din arborele drept.
+
+            delete: este creat un vector de pointeri catre nodurile ce vor trebui sterse
+        si apelata functia delete_aux pentru a sterge legaturile nodurilor principale catre
+        nodul ce trebuie sters si adaugarea acestuia la vectorul de noduri ce trebuie sterse
+        (daca e cazul). Dupa aceasta, este reparata structura de arbore AVL si de lista prin
+        intermediul functiilor auxiliare avlFixUpDelete si avlFixSuccessor. Dupa aceasta,
+        putem in sfarsit sterge nodurile marcate pentru stergere, intrucat acum arborele
+        nu mai contine pointeri catre acestia. In final, functia repair_parents_children
+        asigura ca toate nodurile dintr-o lista de duplicate au aceiasi parinti si copii.
+---------------------------------------------------------------------------------------
+
+Cerinta 2:
+
+            clean_word: intoarce o varianta "curatata" a string-ului trimis ca parametru,
+        adica ii sunt sterse toate caracterele diferite de [a-z] sau [A-Z].
+    
+            buildTreeFromFile: fisierul este citit cuvant-cu-cuvant, fiecare cuvant este
+        curatat si apoi este inserat noul nod in arbore, pana la finalul fisierului de citit.
+---------------------------------------------------------------------------------------
+
+Cerinta 3:
+
+            node_with_max_apparitions: returneaza nodul cu lista de duplicate cea mai lunga
+        dintr-un arbore.
+
+            get_node_level: returneaza adancimea unui nod din arbore.
+
+            inorderKeyQuery: este creat un nou Range, a carui capacitate este setata la marimea
+        arborelui, arbore care este parcurs si pentru fiecare nod generam un offset pe baza
+        pozitiei sale, salvata in info. Apoi, este returnat Range-ul respectiv.
+
+            levelKeyQuery: este creat un Range cu capacitatea egala cu dimensiunea arborelui,
+        incat nu pot avea mai multe offset-uri decat are acesta noduri. Apoi, sunt cautate
+        toate nodurile cu adancimea egala cu adancimea nodului cu lista de duplicate cea mai
+        lunga. Pe baza fiecarei pozitie a acestor noduri, se creeaza cate un offset.
+        Capacitatea Range-ului este, apoi, setata la cate offset-uri am calculat si vectorul
+        de offset-uri este micsorat daca este cazul. Range-ul este, apoi, returnat.
+
+            rangeKeyQuery: este creat un Range cu capacitatea egala cu dimensiunea arborelui,
+        apoi este parcurs fiecare nod si este verificat daca elementul sau este cuprins intre
+        q si p, doua siruri de caractere date ca parametri. In cazul in care acesta este
+        cuprins, se creeaza un nou offset pe baza pozitiei acestuia. Daca, la final, marimea
+        Range-ului nu este egala cu capacitatea, vectorul index este micsorat si capacitatea
+        este setata sa fie egala cu numarul de offset-uri.
