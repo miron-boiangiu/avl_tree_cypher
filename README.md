@@ -60,7 +60,7 @@ Note: the AVL tree implemented also uses lists to deal with duplicate nodes, lik
 <br>
 
 <div align="center">
-<img src="images/example_tree.png" height="500">
+<img src="images/example_tree.png" width=100%>
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
